@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Electron background task runner</title>
+		<link rel="stylesheet" href="index.css">
+		<script src="index.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<h1>Lets run some long running task and watch what it does to the UI</h1>
+				<div>
+					<progress id="progress-bar" value="0" max="100"></progress>
+					<div>
+						<a href="#" id="in-renderer">Renderer process</a>
+						<a href="#" id="in-background">Background process</a>
+					</div>
+				</div>
+				<div id="status">
+					Waiting...
+				</div>
+			</header>
+		</div>
+	</body>
+</html>

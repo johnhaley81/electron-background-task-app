@@ -1,0 +1,45 @@
+{
+  "name": "electron-background-task-app",
+  "productName": "electron-background-task-app",
+  "version": "0.0.0",
+  "description": "Shows off how to run a task in the background",
+  "license": "MIT",
+  "repository": "johnhaley81/electron-background-task-app",
+  "author": {
+    "name": "John Haley",
+    "email": "john@haley.io",
+    "url": "johnhaley.io"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "electronVersion": "0.34.1",
+  "scripts": {
+    "test": "xo",
+    "start": "electron .",
+    "build": "electron-packager . $npm_package_productName --out=dist --ignore='^/dist$' --prune --asar --all --version=$npm_package_electronVersion"
+  },
+  "files": [
+    "index.js",
+    "index.html",
+    "index.css"
+  ],
+  "keywords": [
+    "electron-app"
+  ],
+  "dependencies": {
+    "electron-debug": "^0.3.0"
+  },
+  "devDependencies": {
+    "electron-packager": "^5.0.0",
+    "electron-prebuilt": "^0.34.1",
+    "xo": "^0.10.0"
+  },
+  "xo": {
+    "esnext": true,
+    "envs": [
+      "node",
+      "browser"
+    ]
+  }
+}
