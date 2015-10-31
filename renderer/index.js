@@ -1,4 +1,5 @@
 'use strict';
+const ipc = require('ipc');
 const task = require('../shared/task');
 
 window.onload = function () {
@@ -38,4 +39,19 @@ window.onload = function () {
 
 		finishProcess(task(), new Date() - startTime);
 	};
+
+	const backgroundButton = document.getElementById('in-background');
+
+	backgroundButton.onclick = function longRunningBackgroundTask() {
+		// We have to cast to a number because crossing the IPC boundary will convert the Date object to an empty object.
+		// Error, Date and native objects won't be able to be passed around via IPC.
+		const backgroundStartTime = +new Date();
+
+		startProcess();
+		ipc.send('background-start', backgroundStartTime);
+	}
+
+	ipc.on('background-response', (payload) => {
+		finishProcess(payload.result, new Date() - payload.startTime);
+	});
 };
