@@ -1,10 +1,10 @@
 'use strict';
-const ipc = require('ipc');
+const { ipcRenderer } = require('electron');
 const task = require('../shared/task');
 
 window.onload = function () {
-	ipc.on('background-start', (startTime) => {
-		ipc.send('background-response', {
+	ipcRenderer.on('background-start', (startTime) => {
+		ipcRenderer.send('background-response', {
 			result: task(),
 			startTime: startTime
 		});

@@ -1,13 +1,5 @@
 'use strict';
-const app = require('app');
-const BrowserWindow = require('browser-window');
-const ipc = require('ipc');
-
-// report crashes to the Electron project
-require('crash-reporter').start();
-
-// adds debug features like hotkeys for triggering dev tools and reload
-require('electron-debug')();
+const { app, BrowserWindow, ipcMain } = require('electron');
 
 // prevent window being garbage collected
 let mainWindow;
@@ -26,7 +18,7 @@ function createMainWindow() {
 		height: 600
 	});
 
-	win.loadUrl(`file://${__dirname}/renderer/index.html`);
+	win.loadURL(`file://${__dirname}/renderer/index.html`);
 	win.on('closed', onClosed);
 
 	return win;
@@ -37,7 +29,7 @@ function createBackgroundWindow() {
 		show: false
 	});
 
-	win.loadUrl(`file://${__dirname}/background/index.html`);
+	win.loadURL(`file://${__dirname}/background/index.html`);
 
 	return win;
 }
@@ -59,6 +51,6 @@ app.on('ready', () => {
 	backgroundWindow = createBackgroundWindow();
 });
 
-ipc.on('background-response', (event, payload) => mainWindow.webContents.send('background-response', payload));
+ipcMain.on('background-response', (event, payload) => mainWindow.webContents.send('background-response', payload));
 
-ipc.on('background-start', (event, payload) => backgroundWindow.webContents.send('background-start', payload));
+ipcMain.on('background-start', (event, payload) => backgroundWindow.webContents.send('background-start', payload));

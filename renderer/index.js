@@ -1,5 +1,5 @@
 'use strict';
-const ipc = require('ipc');
+const { ipcRenderer } = require('electron');
 const task = require('../shared/task');
 
 window.onload = function () {
@@ -48,10 +48,10 @@ window.onload = function () {
 		const backgroundStartTime = +new Date();
 
 		startProcess();
-		ipc.send('background-start', backgroundStartTime);
+		ipcRenderer.send('background-start', backgroundStartTime);
 	}
 
-	ipc.on('background-response', (payload) => {
+	ipcRenderer.on('background-response', (event, payload) => {
 		finishProcess(payload.result, new Date() - payload.startTime);
 	});
 };
